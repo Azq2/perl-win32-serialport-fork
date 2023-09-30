@@ -4,7 +4,7 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 # named Win32:: for a good reason. Recommendation from FAQ
-die "No support for OS\n" unless ($^O eq 'MSWin32');
+# die "No support for OS\n" unless ($^O eq 'MSWin32');
 
 my $version = "0.21";	# for nomake versions
 
@@ -162,6 +162,20 @@ my %mm_args=(
     'INC'           => '-I.', # e.g., '-I. -I/usr/include/other'
     'clean'         => { 'FILES' => "t/DefaultPort.pm *.cfg t/*.cfg" },
     'realclean'     => { 'FILES' => "nomake_test nomake_install" },
+    
+    (eval { ExtUtils::MakeMaker->VERSION(6.46) } ? (META_MERGE => {
+		'meta-spec' => { version => 2 },
+		resources => {
+			repository => {
+				type		=> 'git',
+				url			=> 'https://github.com/Azq2/perl-win32-serialport-fork',
+				web			=> 'https://github.com/Azq2/perl-win32-serialport-fork'
+			},
+			bugtracker => {
+				'web'	=> 'https://github.com/Azq2/perl-win32-serialport-fork/issues'
+			}
+		}}) : ()
+	),
 );
 
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence

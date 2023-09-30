@@ -1685,12 +1685,19 @@ sub read_done {
 			     $self->{"_R_OVERLAP"},
 			     $got_p,
 			     $wait);
+    
     if ($ov) {
         $wanted = unpack("L", $got_p);
 	$self->{"_R_BUSY"} = 0;
 	print "read_done=$wanted\n" if ($Babble);
         return (1, $wanted, substr($self->{"_RBUF"}, 0, $wanted));
-    }
+    } else {
+		my $err = Win32::GetLastError();
+		if ($err != 996 && $err != 997) {
+			$self->{"_R_BUSY"} = 0;
+			return (1, 0, "");
+		}
+	}
     return (0, 0, "");
 }
 
@@ -1707,12 +1714,19 @@ sub write_done {
 			     $self->{"_W_OVERLAP"},
 			     $got_p,
 			     $wait);
+
     if ($ov) {
         $written = unpack("L", $got_p);
 	$self->{"_W_BUSY"} = 0;
 	print "write_done=$written\n" if ($Babble);
         return (1, $written);
-    }
+    } else {
+		my $err = Win32::GetLastError();
+		if ($err != 996 && $err != 997) {
+			$self->{"_R_BUSY"} = 0;
+			return (1, 0, "");
+		}
+	}
     return (0, $written);
 }
 
