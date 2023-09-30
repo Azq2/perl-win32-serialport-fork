@@ -1921,7 +1921,13 @@ __END__
 
 =head1 NAME
 
-Win::SerialPort - User interface to Win32 Serial API calls
+Win::SerialPort - User interface to Win32 Serial API calls (fork for 64bit)
+
+=head1 ATTENTION
+
+This is fork of L<Win32::SerialPort|https://metacpan.org/pod/Win32::SerialPort> package, because original not works in 64bit OS.
+
+As base used another fork L<https://github.com/bitflip-eng/win32-serialport|https://github.com/bitflip-eng/win32-serialport>
 
 =head1 SYNOPSIS
 
