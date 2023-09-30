@@ -1,5 +1,5 @@
 # This part includes the low-level API calls
-package Win32API::CommPort;
+package WinAPI::CommPort;
 
 use strict;
 use warnings;
@@ -2406,19 +2406,19 @@ __END__
 
 =head1 NAME
 
-Win32API::CommPort - Raw Win32 system API calls for serial communications.
+WinAPI::CommPort - Raw Win32 system API calls for serial communications.
 
 =head1 SYNOPSIS
 
   use Win32;	## not required under all circumstances
   require 5.006;
-  use Win32API::CommPort qw( :PARAM :STAT 0.20 );
+  use WinAPI::CommPort qw( :PARAM :STAT 0.20 );
 
   ## when available ##  use Win32API::File 0.07 qw( :ALL );
 
 =head2 Constructors
 
-  $PortObj = new Win32API::CommPort ($PortName, $quiet)
+  $PortObj = new WinAPI::CommPort ($PortName, $quiet)
        || die "Can't open $PortName: $^E\n";    # $quiet is optional
 
   @required = qw( BAUD DATA STOP );
@@ -2612,7 +2612,7 @@ internal variable exists for each I<$item> in the input list. The
 I<_N_$item> is created for each parameter that is set either directly
 or by default. A derived class must create the I<_N_$items> for any
 varibles it adds to the base class if it wants B<initialize> to check
-them. Win32API::CommPort supports the following:
+them. WinAPI::CommPort supports the following:
 
 	$item		_N_$item	    setting method
 	------		---------	    --------------
@@ -2644,7 +2644,7 @@ I<Device Control Block> as required. The I<init_done> method indicates
 when I<initialize> has completed successfully.
 
 
-  $PortObj = new Win32API::CommPort ($PortName, $quiet)
+  $PortObj = new WinAPI::CommPort ($PortName, $quiet)
        || die "Can't open $PortName: $^E\n";    # $quiet is optional
 
   if $PortObj->can_databits { $PortObj->is_databits(8) };
@@ -2674,9 +2674,9 @@ and setup data will differ significantly in the two cases. A typical
 example is a Modem on port "COM2". Both of these F<PortNames> open
 the same I<Physical> hardware:
 
-  $P1 = new Win32API::CommPort ("COM2");
+  $P1 = new WinAPI::CommPort ("COM2");
 
-  $P2 = new Win32API::CommPort ("\\\\.\\Nanohertz Modem model K-9");
+  $P2 = new WinAPI::CommPort ("\\\\.\\Nanohertz Modem model K-9");
 
 $P1 is a "generic" serial port. $P2 includes all of $P1 plus a variety
 of modem-specific added options and features. The "raw" API calls return
@@ -2702,7 +2702,7 @@ specific events or data.
 Version 0.16 also adds I<experimental> support for the rest of the option bits
 available through the I<Device Control Block>. They have not been extensively
 tested and these settings are NOT saved in the B<configuration file> by
-I<Win32::SerialPort>. Please let me know if one does not work as advertised.
+I<Win::SerialPort>. Please let me know if one does not work as advertised.
 [Win32 API bit designation]
 
   $PortObj->ignore_null(0);	# discard \000 bytes on input [fNull]
@@ -2808,7 +2808,7 @@ Write_Total = B<is_write_const_time> + (B<is_write_char_time> * bytes_to_write)
 
 When reading a known number of characters, the I<Read_Total> mechanism is
 recommended. This mechanism I<MUST> be used with
-I<Win32::SerialPort tied FileHandles> because the tie methods can make
+I<Win::SerialPort tied FileHandles> because the tie methods can make
 multiple internal API calls. The I<Read_Interval> mechanism is suitable for
 a B<read_bg> method that expects a response of variable or unknown size. You
 should then also set a long I<Read_Total> timeout as a "backup" in case
@@ -2982,7 +2982,7 @@ will be disappointed if you try to use it as one.
 
 e.g. the following is WRONG!!____C<print $PortObj "some text";>
 
-I<Win32::SerialPort> supports accessing ports via I<Tied Filehandles>.
+I<Win::SerialPort> supports accessing ports via I<Tied Filehandles>.
 
 An important note about Win32 filenames. The reserved device names such
 as C< COM1, AUX, LPT1, CON, PRN > can NOT be used as filenames. Hence

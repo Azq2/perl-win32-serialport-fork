@@ -1,14 +1,14 @@
 #! perl -w
 
 use strict;
-use Win32::SerialPort 0.11;
+use Win::SerialPort 0.11;
 
 my $file = "COM1";
 if (@ARGV) {
     $file = shift @ARGV;
 }
 
-my $ob = Win32::SerialPort->new ($file) || 
+my $ob = Win::SerialPort->new ($file) || 
 	 die "Usage: perl options.plx port_name (COMx) > results";
 
 my @baud_opt = $ob->baudrate;

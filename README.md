@@ -22,7 +22,7 @@ BEGIN {
 ```
 
 # Previous Release notes
-Win32::SerialPort and Win32API::CommPort
+Win::SerialPort and WinAPI::CommPort
 VERSION=0.20, 1 April 2010
 VERSION=0.21, 30 April 2010 (Makefile.PL and test improvements)
 
@@ -195,7 +195,7 @@ of the Unix/POSIX function of the same name. It's line noise unless
 you know Unix.
 
 The Perl Journal #13 included an article on Controlling a Modem with
-Win32::SerialPort. Perl Journal #16 showed how to work with the X10
+Win::SerialPort. Perl Journal #16 showed how to work with the X10
 series of home automation modules (ControlX10::).
 
 Please tell me what does and what doesn't work. The module has proven

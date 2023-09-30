@@ -6,13 +6,13 @@
 # no local echo at either end
 #
 require 5.005;	# for select
-use Win32::SerialPort 0.14;
+use Win::SerialPort 0.14;
 use Term::ReadKey;
 
 use strict;
 
 my $cfgfile = "COM1_test.cfg";
-my $ob = Win32::SerialPort->start ($cfgfile) or die "Can't start $cfgfile\n";
+my $ob = Win::SerialPort->start ($cfgfile) or die "Can't start $cfgfile\n";
     # next test will die at runtime unless $ob
 
 

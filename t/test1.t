@@ -10,12 +10,12 @@ if ($@) {
 else {
     plan tests => 309;
 }
-cmp_ok($Win32::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
+cmp_ok($Win::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
 
 # USB and virtual ports can't test output timing, first fail will set this
 my $BUFFEROUT=0;
 
-use Win32::SerialPort qw( :STAT 0.20 );
+use Win::SerialPort qw( :STAT 0.20 );
 
 use strict;
 use warnings;
@@ -94,46 +94,46 @@ my $line = $s.$s.$s;		# about 185 MS at 9600 baud
 my $tick;
 my $tock;
 my %required_param;
-my @necessary_param = Win32::SerialPort->set_test_mode_active(1);
+my @necessary_param = Win::SerialPort->set_test_mode_active(1);
 
 unlink $cfgfile;
 foreach $e (@necessary_param) { $required_param{$e} = 0; }
 
 ## 2 - 6 SerialPort Global variable ($Babble);
 
-is_bad(scalar Win32::SerialPort::debug, 'no debug init');
-ok(scalar Win32::SerialPort::debug(1), 'set debug');
-is_bad(scalar Win32::SerialPort::debug(2), 'invalid set debug');
-ok(scalar Win32::SerialPort->debug(1), 'set debug');
-ok(scalar Win32::SerialPort::debug(), 'read debug state');
+is_bad(scalar Win::SerialPort::debug, 'no debug init');
+ok(scalar Win::SerialPort::debug(1), 'set debug');
+is_bad(scalar Win::SerialPort::debug(2), 'invalid set debug');
+ok(scalar Win::SerialPort->debug(1), 'set debug');
+ok(scalar Win::SerialPort::debug(), 'read debug state');
 
 # 7 - 20: yes_true subroutine, no need to SHOUT if it works
 
-ok( Win32::SerialPort::debug("T"), 'yes_true() tests = T' );
-ok( !Win32::SerialPort::debug("F"), 'F');
+ok( Win::SerialPort::debug("T"), 'yes_true() tests = T' );
+ok( !Win::SerialPort::debug("F"), 'F');
 
 {
     no strict 'subs';
-    ok( Win32::SerialPort::debug(T), 'T');
-    ok(!Win32::SerialPort::debug(F), 'F');
-    ok( Win32::SerialPort::debug(Y), 'Y');
-    ok(!Win32::SerialPort::debug(N), 'N');
-    ok( Win32::SerialPort::debug(ON), 'ON');
-    ok(!Win32::SerialPort::debug(OFF), 'OFF');
-    ok( Win32::SerialPort::debug(TRUE), 'TRUE');
-    ok(!Win32::SerialPort::debug(FALSE), 'FALSE');
-    ok( Win32::SerialPort::debug(Yes), 'Yes');
-    ok(!Win32::SerialPort::debug(No), 'No');
-    ok( Win32::SerialPort::debug("yes"), 'yes');
-    ok(!Win32::SerialPort::debug("f"), 'f');
+    ok( Win::SerialPort::debug(T), 'T');
+    ok(!Win::SerialPort::debug(F), 'F');
+    ok( Win::SerialPort::debug(Y), 'Y');
+    ok(!Win::SerialPort::debug(N), 'N');
+    ok( Win::SerialPort::debug(ON), 'ON');
+    ok(!Win::SerialPort::debug(OFF), 'OFF');
+    ok( Win::SerialPort::debug(TRUE), 'TRUE');
+    ok(!Win::SerialPort::debug(FALSE), 'FALSE');
+    ok( Win::SerialPort::debug(Yes), 'Yes');
+    ok(!Win::SerialPort::debug(No), 'No');
+    ok( Win::SerialPort::debug("yes"), 'yes');
+    ok(!Win::SerialPort::debug("f"), 'f');
 }
 
-@opts = Win32::SerialPort::debug();
+@opts = Win::SerialPort::debug();
 ok(test_bin_list(@opts), 'binary_opt_array');
 
 # 21: Constructor
 
-ok($ob = Win32::SerialPort->new ($file), "new $file");
+ok($ob = Win::SerialPort->new ($file), "new $file");
 die unless ($ob);    # next tests would die at runtime
 
 #### 22 - 41: Check Port Capabilities 
@@ -519,7 +519,7 @@ is($fault, 0, 'all required keys appear once');
 
     # constructor = TIEHANDLE method
 
-ok ($ob = tie(*PORT,'Win32::SerialPort', $cfgfile), 'tie');
+ok ($ob = tie(*PORT,'Win::SerialPort', $cfgfile), 'tie');
 die unless ($ob);    # next tests would die at runtime
 
 SKIP: {
@@ -662,16 +662,16 @@ SKIP: {
 ## 195 - 204: Port in Use (new + quiet)
 
 my $ob2;
-is_bad ($ob2 = Win32::SerialPort->new ($file), 'in use new');
+is_bad ($ob2 = Win::SerialPort->new ($file), 'in use new');
 is_bad (defined $ob2, 'returns undef');
-is ($ob2 = Win32::SerialPort->new ($file, 1), 0, 'zero if quiet');
-is_bad ($ob2 = Win32::SerialPort->new ($file, 0), 'quiet off');
+is ($ob2 = Win::SerialPort->new ($file, 1), 0, 'zero if quiet');
+is_bad ($ob2 = Win::SerialPort->new ($file, 0), 'quiet off');
 is_bad (defined $ob2, 'back to undef');
 
-is_bad ($ob2 = Win32API::CommPort->new ($file), 'CommPort new');
+is_bad ($ob2 = WinAPI::CommPort->new ($file), 'CommPort new');
 is_bad (defined $ob2, 'undef in use');
-is ($ob2 = Win32API::CommPort->new ($file, 1), 0, 'except zero if quiet');
-is_bad ($ob2 = Win32API::CommPort->new ($file, 0), 'not quiet');
+is ($ob2 = WinAPI::CommPort->new ($file, 1), 0, 'except zero if quiet');
+is_bad ($ob2 = WinAPI::CommPort->new ($file, 0), 'not quiet');
 is_bad (defined $ob2, 'CommPort undef');
 
 ## 225 - 278: Other DCB bits

@@ -23,7 +23,7 @@ BEGIN {
             # This must be in a BEGIN in order for the 'use' to be conditional
         if ($OS_win) {
             print "Loading Windows module\n";
-            eval "use Win32::SerialPort";
+            eval "use Win::SerialPort";
 	    die "$@\n" if ($@);
 
         }
@@ -40,7 +40,7 @@ my $port = shift @ARGV;
 my $serial_port;
 
 if ($OS_win) {
-    $serial_port = Win32::SerialPort->new ($port,1);
+    $serial_port = Win::SerialPort->new ($port,1);
 }
 else {
     $serial_port = Device::SerialPort->new ($port,1);

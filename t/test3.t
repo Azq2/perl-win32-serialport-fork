@@ -564,7 +564,7 @@ is($fault, 0, 'all required keys appear once');
 
     # constructor = TIEHANDLE method
 
-ok ($ob = tie(*PORT,'Win32::SerialPort', $cfgfile), 'tie');
+ok ($ob = tie(*PORT,'Win::SerialPort', $cfgfile), 'tie');
 die unless ($ob);    # next tests would die at runtime
 
 SKIP: {
@@ -700,16 +700,16 @@ SKIP: {
 ## 227 - 241: Port in Use (new + quiet)
 
 my $ob2;
-is_bad ($ob2 = Win32::SerialPort->new ($file), "port $file already open");
+is_bad ($ob2 = Win::SerialPort->new ($file), "port $file already open");
 is_bad (defined $ob2, 'returns undef');
-is ($ob2 = Win32::SerialPort->new ($file, 1), 0, 'quiet returns zero');
-is_bad ($ob2 = Win32::SerialPort->new ($file, 0), 'quiet off');
+is ($ob2 = Win::SerialPort->new ($file, 1), 0, 'quiet returns zero');
+is_bad ($ob2 = Win::SerialPort->new ($file, 0), 'quiet off');
 is_bad (defined $ob2, 'returns undef');
 
-is_bad ($ob2 = Win32API::CommPort->new ($file), "CommPort uses same $file");
+is_bad ($ob2 = WinAPI::CommPort->new ($file), "CommPort uses same $file");
 is_bad (defined $ob2, 'returns undef');
-is ($ob2 = Win32API::CommPort->new ($file, 1), 0, 'quiet is one');
-is_bad ($ob2 = Win32API::CommPort->new ($file, 0), 'quiet is zero');
+is ($ob2 = WinAPI::CommPort->new ($file, 1), 0, 'quiet is one');
+is_bad ($ob2 = WinAPI::CommPort->new ($file, 0), 'quiet is zero');
 is_bad (defined $ob2, 'but still undef');
 
 is_bad ($ob2 = AltPort->new ($file), "repeat for inherited $file");

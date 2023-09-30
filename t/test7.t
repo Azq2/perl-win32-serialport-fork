@@ -10,12 +10,12 @@ if ($@) {
 else {
     plan tests => 90;
 }
-cmp_ok($Win32::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
+cmp_ok($Win::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
 
 # USB and virtual ports can't test output timing, first fail will set this
 my $BUFFEROUT=0;
 
-use Win32::SerialPort qw( :STAT 0.20 );
+use Win::SerialPort qw( :STAT 0.20 );
 
 use strict;
 use warnings;
@@ -56,12 +56,12 @@ my $tock;
 my $in;
 my $out;
 my $instead;
-my @necessary_param = Win32::SerialPort->set_test_mode_active(1);
+my @necessary_param = Win::SerialPort->set_test_mode_active(1);
 
 ## 2: Open as Tie using File 
 
     # constructor = TIEHANDLE method
-ok ($ob = tie(*PORT,'Win32::SerialPort', $cfgfile), "tie $cfgfile");
+ok ($ob = tie(*PORT,'Win::SerialPort', $cfgfile), "tie $cfgfile");
 die unless ($ob);    # next tests would die at runtime
 
 ### 27 - 65: Defaults for streamline and lookfor

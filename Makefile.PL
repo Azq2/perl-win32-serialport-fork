@@ -40,7 +40,7 @@ if (system('echo', 'test', '>', $file)) {
 }
 
 print <<COMMENTS;
-            Win32::SerialPort and Win32API::CommPort
+            Win::SerialPort and WinAPI::CommPort
                         VERSION $version
 
 A 'Makefile' created for those with 'make' or CPAN.pm users.
@@ -149,7 +149,7 @@ INST4
 
 close $default;
 my %mm_args=(
-    'NAME'          => 'Win32::SerialPort',
+    'NAME'          => 'Win::SerialPort',
     'VERSION_FROM' => 'lib/Win32/SerialPort.pm', # finds $VERSION
     'PREREQ_PM'     =>	{ 'Test::More' => 0,
 			  'Win32::API' => 0,

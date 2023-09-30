@@ -10,7 +10,7 @@ if ($@) {
 else {
     plan tests => 315;
 }
-cmp_ok($Win32::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
+cmp_ok($Win::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
 
 use AltPort qw( :STAT 0.20 );
 
@@ -37,11 +37,11 @@ sub is_bad {
 my $ob;
 my $pass;
 my $in;
-my @necessary_param = Win32::SerialPort->set_test_mode_active(1);
+my @necessary_param = Win::SerialPort->set_test_mode_active(1);
 
 # 2: Constructor
 
-ok ($ob = Win32::SerialPort->start ($cfgfile), "start $cfgfile");
+ok ($ob = Win::SerialPort->start ($cfgfile), "start $cfgfile");
 die unless ($ob);    # next tests would die at runtime
 
 #### 3 - 45: Check Port Capabilities from stty() Match Save
@@ -262,16 +262,16 @@ is(shift @opts, "-inpck", 'stty "-inpck"');
 
 is(scalar @opts, 0, 'done with stty parameters');
 
-is(Win32::SerialPort::cntl_char(undef), "<undef>", 'cntl_char(undef)');
-is(Win32::SerialPort::cntl_char("\c_"), "^_", 'cntl_char("\c_")');
-is(Win32::SerialPort::cntl_char(" "), " ", 'cntl_char(" ")');
-is(Win32::SerialPort::cntl_char("\176"), "~", 'cntl_char("\176")');
-is(Win32::SerialPort::cntl_char("\177"), "0x7f", 'cntl_char("\177")');
-is(Win32::SerialPort::cntl_char("\200"), "0x80", 'cntl_char("\200")');
-is(Win32::SerialPort::argv_char("^B"), 0x02, 'argv_char("^B")');
-is(Win32::SerialPort::argv_char("^_"), 0x1f, 'argv_char("^_")');
-is(Win32::SerialPort::argv_char("0xab"), 0xab, 'argv_char("0xab")');
-is(Win32::SerialPort::argv_char("0202"), 0x82, 'argv_char("0202")');
+is(Win::SerialPort::cntl_char(undef), "<undef>", 'cntl_char(undef)');
+is(Win::SerialPort::cntl_char("\c_"), "^_", 'cntl_char("\c_")');
+is(Win::SerialPort::cntl_char(" "), " ", 'cntl_char(" ")');
+is(Win::SerialPort::cntl_char("\176"), "~", 'cntl_char("\176")');
+is(Win::SerialPort::cntl_char("\177"), "0x7f", 'cntl_char("\177")');
+is(Win::SerialPort::cntl_char("\200"), "0x80", 'cntl_char("\200")');
+is(Win::SerialPort::argv_char("^B"), 0x02, 'argv_char("^B")');
+is(Win::SerialPort::argv_char("^_"), 0x1f, 'argv_char("^_")');
+is(Win::SerialPort::argv_char("0xab"), 0xab, 'argv_char("0xab")');
+is(Win::SerialPort::argv_char("0202"), 0x82, 'argv_char("0202")');
 
 print "Change all the parameters via stty\n";
 

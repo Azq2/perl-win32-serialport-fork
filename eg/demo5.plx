@@ -5,7 +5,7 @@
 BEGIN { $| = 1; print "demo5.plx loaded "; }
 END {print "not ok 1\n" unless $loaded;}
 ## use lib './lib';
-use Win32::SerialPort 0.15;
+use Win::SerialPort 0.15;
 $loaded = 1;
 print "ok 1\n";
 
@@ -87,7 +87,7 @@ my $cfgfile = "COM1_test.cfg";
 
 # 2: Constructor
 
-$ob = Win32::SerialPort->start ($cfgfile) or die "Can't start $cfgfile\n";
+$ob = Win::SerialPort->start ($cfgfile) or die "Can't start $cfgfile\n";
     # next test will die at runtime unless $ob
 
 ### setup for dumb terminal, your mileage may vary

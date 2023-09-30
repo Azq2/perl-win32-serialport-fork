@@ -1,7 +1,7 @@
 #!perl -w
 
 use strict;
-use Win32::SerialPort 0.15;
+use Win::SerialPort 0.15;
 
 #### variable declarations ####
 
@@ -94,7 +94,7 @@ if (@ARGV) {
 	exit;
     }
     elsif (($arg eq "-v")|($arg eq "--version")) {
-        print "Win32::SerialPort Version = $Win32::SerialPort::VERSION\n";
+        print "Win::SerialPort Version = $Win::SerialPort::VERSION\n";
 	exit;
     }
     else {
@@ -119,7 +119,7 @@ die "\nstty_settings not permitted with option $arg\n" if ($arg && @ARGV);
 
 ########### SerialPort code starts here ##################
 
-my $ob = Win32::SerialPort->new ("$port") || die "Can't open port $port: $!\n";
+my $ob = Win::SerialPort->new ("$port") || die "Can't open port $port: $!\n";
 
 my $baud = $ob->baudrate;
 
@@ -186,7 +186,7 @@ elsif ($arg eq "-a") {
     }
     print "\n";
 }
-## printf "DEBUG: intr = %s;\n", Win32::SerialPort::cntl_char($ob->stty_intr);
+## printf "DEBUG: intr = %s;\n", Win::SerialPort::cntl_char($ob->stty_intr);
 
 $ob->close;
 undef $ob;

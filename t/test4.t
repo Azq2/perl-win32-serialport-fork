@@ -10,12 +10,12 @@ if ($@) {
 else {
     plan tests => 518;
 }
-cmp_ok($Win32::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
+cmp_ok($Win::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
 
 # USB and virtual ports can't test output timing, first fail will set this
 my $BUFFEROUT=0;
 
-use Win32::SerialPort qw( :STAT 0.20 );
+use Win::SerialPort qw( :STAT 0.20 );
 
 use strict;
 use warnings;
@@ -938,7 +938,7 @@ is ($in, "123456", 'MATCHED');
 is ($out, "", 'nothing AFTER');
 is ($patt, "12..56", 'PATTERN is re');
 
-@necessary_param = Win32::SerialPort->set_test_mode_active(0);
+@necessary_param = Win::SerialPort->set_test_mode_active(0);
 
 is_bad ($in = $ob->lookclear("Good\nBye"), 'lookclear no testmode');
 is ($ob->lookfor, "", 'lookfor no match');

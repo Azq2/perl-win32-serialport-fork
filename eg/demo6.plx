@@ -1,7 +1,7 @@
 #!perl -w
 
 use lib './lib';
-use Win32::SerialPort 0.17;
+use Win::SerialPort 0.17;
 require 5.004;
 
 use strict;
@@ -15,7 +15,7 @@ my $cfgfile = "COM1_test.cfg";
 # =============== execution begins here =======================
 
     # constructor = TIEHANDLE method
-my $tie_ob = tie(*PORT,'Win32::SerialPort', $cfgfile)
+my $tie_ob = tie(*PORT,'Win::SerialPort', $cfgfile)
                  || die "Can't start $cfgfile\n";
 
     # timeouts

@@ -10,13 +10,13 @@ BEGIN { require 5.004; }
 use Tk;
 use Tk::ROText;
 use Tk::LabEntry;
-use Win32::SerialPort 0.14;
+use Win::SerialPort 0.14;
 
 ## use subs qw/newline sendline/;
 use strict;
 
 my $cfgfile = "COM1_test.cfg";
-my $ob = Win32::SerialPort->start ($cfgfile) or die "Can't start $cfgfile\n";
+my $ob = Win::SerialPort->start ($cfgfile) or die "Can't start $cfgfile\n";
     # next test will die at runtime unless $ob
 
 my $poll = 0;
@@ -26,7 +26,7 @@ my $msg = "";
 my $send = "";
 my $senttext = "";
 
-my $mw= MainWindow->new('-title' => 'Win32::SerialPort Chat Demo7');
+my $mw= MainWindow->new('-title' => 'Win::SerialPort Chat Demo7');
 
 my $f = $mw->Frame;
 my $s = $f->LabEntry(-label => 'Local: ', -width => 60,

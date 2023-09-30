@@ -1,6 +1,6 @@
 #! perl -w
 
-use Win32::SerialPort 0.08;
+use Win::SerialPort 0.08;
 package COM1demo3;
 use strict;
 use Win32;
@@ -19,18 +19,18 @@ my $full_cfg = 0;
 
 if (@ARGV) {
     $file = $ARGV[0];
-    $ob = Win32::SerialPort->start ($file) or
+    $ob = Win::SerialPort->start ($file) or
         die "could not open port from configuration $file\n";
     # next test would die at runtime without $ob
     $full_cfg++;
 }
 else {
-    $ob = Win32::SerialPort->new ($file) or
+    $ob = Win::SerialPort->new ($file) or
         die "could not open port from $file\n";
     # next test would die at runtime without $ob
 }
 
-my @carp_off_please = Win32::SerialPort->set_test_mode_active(1);
+my @carp_off_please = Win::SerialPort->set_test_mode_active(1);
 
 #### Check Port Settings
 

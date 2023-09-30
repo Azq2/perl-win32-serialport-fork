@@ -10,12 +10,12 @@ if ($@) {
 else {
     plan tests => 146;
 }
-cmp_ok($Win32::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
+cmp_ok($Win::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
 
 # USB and virtual ports can't test output timing, first fail will set this
 my $BUFFEROUT=0;
 
-use Win32::SerialPort qw( :STAT 0.20 );
+use Win::SerialPort qw( :STAT 0.20 );
 
 use strict;
 use warnings;
@@ -53,7 +53,7 @@ my $tock;
 my $s="testing is a wonderful thing - this is a 60 byte long string";
 #      123456789012345678901234567890123456789012345678901234567890
 my $line = $s.$s.$s;		# about 185 MS at 9600 baud
-my @necessary_param = Win32::SerialPort->set_test_mode_active(1);
+my @necessary_param = Win::SerialPort->set_test_mode_active(1);
 
 sub is_bad {
     local $Test::Builder::Level = $Test::Builder::Level + 1;
@@ -62,7 +62,7 @@ sub is_bad {
 
 # 2: Constructor
 
-ok($ob = Win32::SerialPort->start ($cfgfile), "start $cfgfile");
+ok($ob = Win::SerialPort->start ($cfgfile), "start $cfgfile");
 die unless ($ob);    # next tests would die at runtime
 
 #### 3 - 24: Check Port Capabilities Match Save
@@ -408,7 +408,7 @@ undef $ob;
 # 144 - 145: Reopen tests (unconfirmed) $ob->close via undef
 
 sleep 1;
-ok($ob = Win32::SerialPort->start ($cfgfile), "start $cfgfile");
+ok($ob = Win::SerialPort->start ($cfgfile), "start $cfgfile");
 die unless ($ob);    # next tests would die at runtime
 ok($ob->close, 'close');
 undef $ob;

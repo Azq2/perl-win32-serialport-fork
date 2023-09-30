@@ -1,10 +1,10 @@
-package Win32::SerialPort;
+package Win::SerialPort;
 
 use strict;
 use warnings;
 
 use Win32;
-use Win32API::CommPort qw( :STAT :PARAM 0.20 );
+use WinAPI::CommPort qw( :STAT :PARAM 0.20 );
 
 use Carp;
 
@@ -12,11 +12,11 @@ our $VERSION = '0.22';
 
 require Exporter;
 
-our @ISA = qw( Exporter Win32API::CommPort );
+our @ISA = qw( Exporter WinAPI::CommPort );
 
 our @EXPORT= qw();
-our @EXPORT_OK= @Win32API::CommPort::EXPORT_OK;
-our %EXPORT_TAGS = %Win32API::CommPort::EXPORT_TAGS;
+our @EXPORT_OK= @WinAPI::CommPort::EXPORT_OK;
+our %EXPORT_TAGS = %WinAPI::CommPort::EXPORT_TAGS;
 
 # parameters that must be included in a "save" and "checking subs"
 
@@ -145,14 +145,14 @@ my %opts = (
 my @binary_opt = (0, 1);
 my @byte_opt = (0, 255);
 
-my $cfg_file_sig="Win32::SerialPort_Configuration_File -- DO NOT EDIT --\n";
+my $cfg_file_sig="Win::SerialPort_Configuration_File -- DO NOT EDIT --\n";
 
 my $Verbose = 0;
 
     # test*.t only - suppresses default messages
 sub set_test_mode_active {
     return unless (@_ == 2);
-    Win32API::CommPort->set_no_messages($_[1]);
+    WinAPI::CommPort->set_no_messages($_[1]);
 	# object not defined but :: upsets strict
     return (keys %validate);
 }
@@ -1891,7 +1891,7 @@ sub debug {
         	$Verbose = yes_true ($self);
 	}
         nocarp || carp "SerialPort Debug Class = $Verbose";
-	Win32API::CommPort::debug_comm($Verbose);
+	WinAPI::CommPort::debug_comm($Verbose);
         return $Verbose;
     }
 }
@@ -1921,22 +1921,22 @@ __END__
 
 =head1 NAME
 
-Win32::SerialPort - User interface to Win32 Serial API calls
+Win::SerialPort - User interface to Win32 Serial API calls
 
 =head1 SYNOPSIS
 
   require 5.003;
-  use Win32::SerialPort qw( :STAT 0.19 );
+  use Win::SerialPort qw( :STAT 0.19 );
 
 =head2 Constructors
 
-  $PortObj = new Win32::SerialPort ($PortName, $quiet)
+  $PortObj = new Win::SerialPort ($PortName, $quiet)
        || die "Can't open $PortName: $^E\n";    # $quiet is optional
 
-  $PortObj = start Win32::SerialPort ($Configuration_File_Name)
+  $PortObj = start Win::SerialPort ($Configuration_File_Name)
        || die "Can't start $Configuration_File_Name: $^E\n";
 
-  $PortObj = tie (*FH, 'Win32::SerialPort', $Configuration_File_Name)
+  $PortObj = tie (*FH, 'Win::SerialPort', $Configuration_File_Name)
        || die "Can't tie using $Configuration_File_Name: $^E\n";
 
 
@@ -1967,7 +1967,7 @@ Win32::SerialPort - User interface to Win32 Serial API calls
   $PortObj->cfg_param_3('none');    # one may end up as a log file path
 
      # specials for test suite only
-  @necessary_param = Win32::SerialPort->set_test_mode_active(1);
+  @necessary_param = Win::SerialPort->set_test_mode_active(1);
   $PortObj->lookclear("loopback to next 'input' method");
   $name = $PortObj->device();        # readonly for test suite
 
@@ -2042,7 +2042,7 @@ action desired is a message, B<status> provides I<Built-In> BitMask processing:
 
 =head2 Methods used with Tied FileHandles
 
-  $PortObj = tie (*FH, 'Win32::SerialPort', $Configuration_File_Name)
+  $PortObj = tie (*FH, 'Win::SerialPort', $Configuration_File_Name)
        || die "Can't tie: $^E\n";            ## TIEHANDLE ##
 
   print FH "text";                           ## PRINT     ##
@@ -2155,7 +2155,7 @@ action desired is a message, B<status> provides I<Built-In> BitMask processing:
   $PortObj->stty("-icanon");	# disable eof, erase and kill char, Unix-style
   @stty_all = $PortObj->stty();	# get all the parameters, Perl-style
 
-=head2 Capability Methods inherited from Win32API::CommPort
+=head2 Capability Methods inherited from WinAPI::CommPort
 
 These return scalar context only.
 
@@ -2167,7 +2167,7 @@ These return scalar context only.
   can_spec_char       can_interval_timeout   can_total_timeout
   buffer_max          can_rlsd_config        can_ioctl
 
-=head2 Operating Methods inherited from Win32API::CommPort
+=head2 Operating Methods inherited from WinAPI::CommPort
 
   write_bg            write_done             read_bg
   read_done           reset_error            suspend_tx
@@ -2184,7 +2184,7 @@ These return scalar context only.
 =head1 DESCRIPTION
 
 
-This module uses Win32API::CommPort for raw access to the API calls and
+This module uses WinAPI::CommPort for raw access to the API calls and
 related constants.  It provides an object-based user interface to allow
 higher-level use of common API call sequences for dealing with serial
 ports.
@@ -2201,7 +2201,7 @@ supports that form in this usage.
 The primary constructor is B<new> with a F<PortName> (as the Registry
 knows it) specified. This will create an object, and get the available
 options and capabilities via the Win32 API. The object is a superset
-of a B<Win32API::CommPort> object, and supports all of its methods.
+of a B<WinAPI::CommPort> object, and supports all of its methods.
 The port is not yet ready for read/write access. First, the desired
 I<parameter settings> must be established. Since these are tuning
 constants for an underlying hardware driver in the Operating System,
@@ -2257,7 +2257,7 @@ update the I<Device Control Block> as required. The B<save>
 method will write the current parameters to a file that B<start, tie,> and
 B<restart> can use to reestablish a functional setup.
 
-  $PortObj = new Win32::SerialPort ($PortName, $quiet)
+  $PortObj = new Win::SerialPort ($PortName, $quiet)
        || die "Can't open $PortName: $^E\n";    # $quiet is optional
 
   $PortObj->user_msg(ON);
@@ -2285,9 +2285,9 @@ and setup data will differ significantly in the two cases. A typical
 example is a Modem on port "COM2". Both of these F<PortNames> open
 the same I<Physical> hardware:
 
-  $P1 = new Win32::SerialPort ("COM2");
+  $P1 = new Win::SerialPort ("COM2");
 
-  $P2 = new Win32::SerialPort ("\\\\.\\Nanohertz Modem model K-9");
+  $P2 = new Win::SerialPort ("\\\\.\\Nanohertz Modem model K-9");
 
 $P1 is a "generic" serial port. $P2 includes all of $P1 plus a variety
 of modem-specific added options and features. The "raw" API calls return
@@ -2313,16 +2313,16 @@ B<write_settings> based on a previously saved configuration. This
 constructor will return C<undef> on a bad configuration file or failure
 of a validity check. The returned object is ready for access.
 
-  $PortObj2 = start Win32::SerialPort ($Configuration_File_Name)
+  $PortObj2 = start Win::SerialPort ($Configuration_File_Name)
        || die;
 
 The third constructor, B<tie>, combines the B<start> with Perl's
-support for tied FileHandles (see I<perltie>). Win32::SerialPort
+support for tied FileHandles (see I<perltie>). Win::SerialPort
 implements the complete set of methods: TIEHANDLE, PRINT, PRINTF,
 WRITE, READ, GETC, READLINE, CLOSE, and DESTROY. Tied FileHandle
 support was new with Version 0.14.
 
-  $PortObj2 = tie (*FH, 'Win32::SerialPort', $Configuration_File_Name)
+  $PortObj2 = tie (*FH, 'Win::SerialPort', $Configuration_File_Name)
        || die;
 
 The implementation attempts to mimic STDIN/STDOUT behaviour as closely
@@ -2341,12 +2341,12 @@ identical function can be obtained with a suitable B<are_match> setting.
 Record separators are experimental in Version 0.17. They are not saved
 in the configuration_file.
 
-The tied FileHandle methods may be combined with the Win32::SerialPort
+The tied FileHandle methods may be combined with the Win::SerialPort
 methods for B<read, input>, and B<write> as well as other methods. The
 typical restrictions against mixing B<print> with B<syswrite> do not
 apply. Since both B<(tied) read> and B<sysread> call the same C<$ob-E<gt>READ>
 method, and since a separate C<$ob-E<gt>read> method has existed for some
-time in Win32::SerialPort, you should always use B<sysread> with the
+time in Win::SerialPort, you should always use B<sysread> with the
 tied interface. Beginning in Version 0.17, B<sysread> checks the input
 against B<stty_icrnl>, B<stty_inlcr>, and B<stty_igncr>. With B<stty_igncr>
 active, the B<sysread> returns the count of all characters received including
@@ -2424,7 +2424,7 @@ Return a list consisting of all acceptable choices for parameters with
 discrete choices. Return a list C<(minimum, maximum)> for parameters
 which can be set to a range of values. Binary selections have no need
 to call this way - but will get C<(0,1)> if they do. Beginning in
-Version 0.16, Binary selections inherited from Win32API::CommPort may
+Version 0.16, Binary selections inherited from WinAPI::CommPort may
 not return anything useful in list context. The null list C<(undef)>
 will be returned for failed calls in list context (e.g. for an invalid
 or unexpected argument).
@@ -2474,7 +2474,7 @@ no bytes are received.
 =head2 Exports
 
 Nothing is exported by default.  Nothing is currently exported. Optional
-tags from Win32API::CommPort are passed through.
+tags from WinAPI::CommPort are passed through.
 
 =over 4
 
@@ -2487,7 +2487,7 @@ Utility subroutines and constants for parameter setting and test:
 
 =item :STAT
 
-Serial communications constants from Win32API::CommPort. Included are the
+Serial communications constants from WinAPI::CommPort. Included are the
 constants for ascertaining why a transmission is blocked:
 
 	BM_fCtsHold	BM_fDsrHold	BM_fRlsdHold	BM_fXoffHold
@@ -2834,7 +2834,7 @@ e.g. the following is WRONG!!____C<print $PortObj "some text";>
 You need something like this:
 
         # construct
-    $tie_ob = tie(*FOO,'Win32::SerialPort', $cfgfile)
+    $tie_ob = tie(*FOO,'Win::SerialPort', $cfgfile)
                  or die "Can't start $cfgfile\n";
 
     print FOO "enter char: "; # destination is FileHandle, not Object
@@ -2899,7 +2899,7 @@ are a good starting point for additional examples.
 
 The size of the Win32 buffers are selectable with B<buffers>. But each read
 method currently uses a fixed internal buffer of 4096 bytes. This can be
-changed in the Win32API::CommPort source and read with B<internal_buffer>.
+changed in the WinAPI::CommPort source and read with B<internal_buffer>.
 The XS version will support dynamic buffer sizing. Large operations are
 automatically converted to multiple smaller ones by the B<tied FileHandle>
 methods.
@@ -2942,7 +2942,7 @@ Tye McQueen contributed but no longer supports these modules.
 
 =head1 SEE ALSO
 
-Win32API::CommPort - the low-level API calls which support this module
+WinAPI::CommPort - the low-level API calls which support this module
 
 Win32API::File I<when available>
 

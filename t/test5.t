@@ -9,14 +9,14 @@ if ($@) {
 else {
     plan tests => 166;
 }
-cmp_ok($Win32::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
+cmp_ok($Win::SerialPort::VERSION, '>=', 0.20, 'VERSION check');
 
-use Win32::SerialPort qw( :STAT 0.20 );
+use Win::SerialPort qw( :STAT 0.20 );
 
 use strict;
 use warnings;
 
-use Win32API::CommPort qw( :RAW :COMMPROP :DCB 0.12 );	# check misc. exports
+use WinAPI::CommPort qw( :RAW :COMMPROP :DCB 0.12 );	# check misc. exports
 use Win32;
 
 my $tc = 2;		# next test number
@@ -217,13 +217,13 @@ $event = CreateEvent($null,	# no security
 		     $null);	# no name
 
 ok($event, 'CreateEvent');
-Win32API::CommPort->OS_Error unless ($event);
+WinAPI::CommPort->OS_Error unless ($event);
 
 ResetEvent($event);
 $ok = Win32::GetLastError;
 is($ok, 0, 'Win32::GetLastError PASS');
 print "Should Pass: ";
-Win32API::CommPort->OS_Error;
+WinAPI::CommPort->OS_Error;
 
 $ok = CloseHandle($event);	# $MS doesn't check return either
 
@@ -231,5 +231,5 @@ ResetEvent($event);
 $ok = Win32::GetLastError;
 ok($ok > 0, 'Win32::GetLastError FAIL');
 print "Should Fail: ";
-Win32API::CommPort->OS_Error;
+WinAPI::CommPort->OS_Error;
 

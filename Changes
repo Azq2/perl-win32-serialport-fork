@@ -55,7 +55,7 @@ Revision history for Perl extension Win32API::SerialPort.
 	- Make "handshake" recommended rather than required
 	- Add restart
 	- Add demo5.plx
-	- Split into Win32:SerialPort(user) and Win32API::CommPort(raw)
+	- Split into Win32:SerialPort(user) and WinAPI::CommPort(raw)
 
 0.10  Sat Aug 29 23:18:50 1998
 	- First public beta
