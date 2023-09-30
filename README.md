@@ -1,6 +1,6 @@
 Fork of another fork https://github.com/bitflip-eng/win32-serialport :)
 
-Main goal is fixed module now available on the CPAN with new name: [https://metacpan.org/dist/Win::SerialPort](https://metacpan.org/pod/Win::SerialPort)
+Main goal is fixed module now available on the CPAN with new name: [Win::SerialPort](https://metacpan.org/pod/Win::SerialPort)
 
 You need change your code:
 - Win32::SerialPort -> Win::SerialPort
