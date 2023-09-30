@@ -112,7 +112,7 @@ use strict;
 use warnings;
 use ExtUtils::Install qw( install );
 
-my \$FULLEXT = "Win32/SerialPort";
+my \$FULLEXT = "Win/SerialPort";
 my \$INST_LIB = "./lib";
 my \$HTML_LIB = "./html";
 
@@ -150,12 +150,12 @@ INST4
 close $default;
 my %mm_args=(
     'NAME'          => 'Win::SerialPort',
-    'VERSION_FROM' => 'lib/Win32/SerialPort.pm', # finds $VERSION
+    'VERSION_FROM' => 'lib/Win/SerialPort.pm', # finds $VERSION
     'PREREQ_PM'     =>	{ 'Test::More' => 0,
 			  'Win32::API' => 0,
 			  'Win32' => 0
 			}, # e.g., Module::Name => 1.1
-    'ABSTRACT_FROM' => 'lib/Win32/SerialPort.pm', # retrieve abstract from module
+    'ABSTRACT_FROM' => 'lib/Win/SerialPort.pm', # retrieve abstract from module
     'AUTHOR'        => 'Bill Birthisel <wcbirthisel@alum.mit.edu>',
     'LIBS'          => [''], # e.g., '-lm'
     'DEFINE'        => '', # e.g., '-DHAVE_SOMETHING'

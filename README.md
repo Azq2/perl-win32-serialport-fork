@@ -78,15 +78,15 @@ FILES:
 
     lib				- install directory
     lib/Win32			- install directory
-    lib/Win32/SerialPort.pm	- the reason you're reading this
+    lib/Win/SerialPort.pm	- the reason you're reading this
     lib/Win32API		- install directory
-    lib/Win32API/CommPort.pm	- the raw API calls and other internals
+    lib/WinAPI/CommPort.pm	- the raw API calls and other internals
 
     html			- install directory
     html/Win32			- install directory
-    html/Win32/SerialPort.html	- documentation
+    html/Win/SerialPort.html	- documentation
     html/Win32API		- install directory
-    html/Win32API/CommPort.html	- documentation
+    html/WinAPI/CommPort.html	- documentation
 
     t			- test directory
     t/Altport.pm	- stub for inheritance test
