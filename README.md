@@ -1,3 +1,12 @@
+Fork of another fork https://github.com/bitflip-eng/win32-serialport :)
+
+Main goal is fixed module now available on the CPAN with new name: https://metacpan.org/dist/Win::SerialPort
+
+You need change your code:
+- Win32::SerialPort -> Win::SerialPort
+- Win32::CommPort -> Win::CommPort
+
+# Original fork description
 This fork brings 64-bit compatibility to the Perl serial port module thanks to a patch by Christopher Oicles explained here https://rt.cpan.org/Public/Bug/Display.html?id=113337.  This project hasn't had any support or updates to these issues in over 10 years, so we're just forking it and fixing it with a straightforward way to incorporate this into existing projects without a rewrite.  In short: this fork is structured such that existing code will not need to change.  The module name is kept the same and is set up to override the the "Original" Win32 versions by adding these modules with the correct directory structure to an existing project and then in the projects
 scripts, add the directory to @INC.
 
@@ -8,8 +17,8 @@ When done, the directory structure of the project using this project should look
 ```
 .
 └───lib
-    ├───Win32
-    └───WIn32API
+    ├───Win
+    └───WInAPI
 ```
 
 # Setup
